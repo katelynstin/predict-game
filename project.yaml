@@ -1,0 +1,121 @@
+swagger: "3.0.0"
+info:
+  version: "0.0.1"
+  title: "RankBoardGame"
+  description: "A service that recieves data (obtain) and gets results (predict)  of a prediction model."
+host: "localhost:8080"
+basePath: "/engr-222"
+schemes:
+  - "http"
+consumes:
+  - "prediction/data"
+produces:
+  - "prediction/data"
+paths:
+  /predict/<gamename>:
+    get:
+      tags:
+        - PRED
+      operationId: get.prediction
+      description: "Gets the predictions of where a boardgame should rank"
+      parameters:
+        - in: query
+          name: gamename
+          required: true
+          schema:
+            type: string
+          description: Name of the game. 
+      produces:
+        - "prediction/data"
+      responses:
+        "200":
+          description: "Predicted Rank"
+          schema:
+            type: "object"
+            properties:
+              rank:
+                type: "integer"
+                description: The rank of the game.
+        "400":
+          description: "Missing arguments."
+          schema:
+            type: string
+            description: statement of error.
+        "405":
+          desciprion: "Invalid input. Not in system or wrong name."
+          schema:
+            type: string
+            description: statement of error.
+  /obtain/<gameobject>:
+    get:
+      tags:
+        - OBTAIN
+      operationId: obtain.data                                                                                                                                                      
+      description: "Obtains boardgame data in order to make prediction"
+      parameters:
+        - in: query
+          name: gameName
+          required: true
+          schema:
+            type: string
+          description: The name of the game
+        - in: query
+          name: avgRating
+          required: true
+          schema:
+            type: integer
+          description: The average rating so far of the game.
+        - in: query
+          name: geekRating
+          required: true
+          schema:
+            type: integer
+          description: The rating gave by geek.
+        - in: query
+          name: numVotes
+          required: true
+          schema:
+            type: integer
+          description: The number of votes recieved.
+        - in: query
+          name: avgTime
+          required: true
+          schema: 
+            type: integer
+          description: The average playing time of the game.
+        - in: query
+          name: owned
+          required: true
+          schema: 
+            type: integer
+          description: The number of copies owned/bought.
+        - in: query
+          name: minPlayer
+          required: true
+          schema: 
+            type: integer
+          description: The minimum number of players needed to play the game.
+        - in: query
+          name: maxPlayer
+          required: true
+          schema:
+            type: integer 
+           description: The maximum number of players possible to play the game.
+      produces:
+        - "prediction/data"
+      responses:
+        "200":
+          description: "Obtained data"
+          schema:
+            type: string
+            description: Statement of success 
+        "400":
+          description: Missing arguments.
+          scheme:
+            type: string
+            description: Statement of error.
+        "405":
+          description: invalid input.
+          schema: 
+            type: string
+            description: Statement of error.
