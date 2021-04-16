@@ -1,0 +1,66 @@
+openapi: "3.0.0"
+info:
+  version: "0.0.1"
+  title: "RankBoardGame"
+  description: "A service that recieves data (obtain) and gets results (predict)  of a prediction model."
+#host: "localhost:8080"
+#basePath: "/engr-222"
+#schemes:
+ # - "http"
+#consumes:
+  #- "prediction/data"
+#produces:
+  #- "prediction/data"
+paths:
+  /predict/<gamename>:
+    get:
+      tags:
+        - PRED
+      operationId: predict.prediction
+      description: "Gets the predictions of where a boardgame should rank"
+      parameters:
+        - in: path
+          name: gamename
+          required: true
+          schema:
+            type: array
+            items:
+              type: number
+            minItems: 1
+          style: simple
+          explode: true
+        - in: query
+          name: metadata
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: "Predicted Rank"
+        #"400":
+          #description: "Missing arguments."
+        #"405":
+          #desciprion: "Invalid input. Not in system or wrong name."
+  #/obtain/<gameobject>:
+    #get:
+      #tags:
+        #- OBTAIN
+      #operationId: predict.prediction
+      #description: "Obtains boardgame data in order to make prediction"
+      #produces:
+        #- "prediction/data"
+      #responses:
+        #"200":
+          #description: "Obtained data"
+          #schema:
+            #type: string
+            #description: Statement of success 
+        #"400":
+          #description: Missing arguments.
+          #scheme:
+            #type: string
+            #description: Statement of error.
+        #"405":
+          #description: invalid input.
+          #schema: 
+            #type: string
+            #description: Statement of error.

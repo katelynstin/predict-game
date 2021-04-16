@@ -2,10 +2,11 @@ from flask import Flask
 from flask import jsonify
 import connexion
 from joblib import load
+import pandas
 
 #load the model
 
-my_model = load('svc_model.pkl')
+#my_model = load('Boardgame.pkl')
 
 # Create the application instance
 app = connexion.App(__name__, specification_dir="./")
