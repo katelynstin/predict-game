@@ -2,7 +2,6 @@ from flask import Flask
 from flask import jsonify
 import connexion
 from joblib import load
-import pandas
 
 #load the model
 
